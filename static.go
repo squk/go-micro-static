@@ -19,7 +19,7 @@ type static struct {
 	services []string
 }
 
-func (s static) Flags() []cli.Flag {
+func (s *static) Flags() []cli.Flag {
 	return []cli.Flag{
 		&cli.StringSliceFlag{
 			Name:    "static_service",
@@ -47,12 +47,12 @@ func debug(fmtstr string, args ...interface{}) {
 	}
 }
 
-func (s static) Commands() []*cli.Command {
+func (s *static) Commands() []*cli.Command {
 
 	return nil
 }
 
-func (s static) Handler() plugin.Handler {
+func (s *static) Handler() plugin.Handler {
 	return func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			for _, service := range s.services {
@@ -77,7 +77,7 @@ func (s static) Handler() plugin.Handler {
 	}
 }
 
-func (s static) Init(ctx *cli.Context) error {
+func (s *static) Init(ctx *cli.Context) error {
 	s.services = ctx.StringSlice("static_service")
 	debug("Ignoring static content for requests on services %v", s.services)
 	dir := ctx.String("static_dir")
@@ -89,7 +89,7 @@ func (s static) Init(ctx *cli.Context) error {
 	return nil
 }
 
-func (s static) String() string {
+func (s *static) String() string {
 	return "static"
 }
 
