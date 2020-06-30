@@ -95,5 +95,5 @@ func (s *static) String() string {
 
 // NewPlugin returns new plugin
 func NewPlugin() plugin.Plugin {
-	return static{}
+	return &static{}
 }
