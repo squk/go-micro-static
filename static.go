@@ -48,6 +48,7 @@ func debug(fmtstr string, args ...interface{}) {
 }
 
 func (s static) Commands() []cli.Command {
+
 	return nil
 }
 
